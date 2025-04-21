@@ -103,7 +103,7 @@ const FoodItem = ({ id, title, minImg, midImg, type, rating, price }) => {
               <p>{type}</p>
             </div>
             <div className="order_online_last_container">
-              <p className="order_online_item_price">₹ {price}</p>
+              <p className="order_online_item_price">$ {price}</p>
               {itemCount > 0 ? (
                 <div className="order_online_add_remove_btn">
                   <button
