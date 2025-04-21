@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy, useEffect } from "react";
+import Loading from "./components/Loading";
+import Lenis from "@studio-freight/lenis";
 
-function App() {
+const Header = lazy(() => import("./components/Header"));
+const AppRoutes = lazy(() => import("./routes/AppRoutes"));
+const Footer = lazy(() => import("./components/Footer"));
+
+const App = () => {
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Suspense fallback={<Loading />}>
+        <Header />
+        <AppRoutes />
+        <Footer />
+      </Suspense>
+    </>
   );
-}
+};
 
 export default App;
